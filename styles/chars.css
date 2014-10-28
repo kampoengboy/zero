@@ -1,0 +1,97 @@
+@-webkit-keyframes zero-run-init {
+    from { background-position: 0px 0px; }
+    to { background-position: -275px 0px; }
+}
+
+@-webkit-keyframes zero-run {
+    from { background-position: -110px 0px; }
+    to { background-position: -825px 0px; }
+}
+
+@-webkit-keyframes zero-stand {
+    from { background-position: 0px -50px; }
+    to { background-position: -100px -50px; }
+}
+
+@-webkit-keyframes zero-move-right {
+    to   { left: 600px; }
+}
+
+@-webkit-keyframes zero-move-left {
+    to   { left: 0px; }
+}
+
+@-webkit-keyframes zero-move-up {
+    from { background-position: -100px -105px;}
+    to { background-position: -385px -105px;}
+}
+
+@-webkit-keyframes zero-up {
+    to { top: 50px; }
+}
+@-webkit-keyframes zero-bottom {
+    to { top: 100px; }
+}
+
+#viewport {
+    background-image: url("../images/bg.png");
+    background-position: -6700px -3px;
+    height: 225px;
+    width: 640px;
+}
+
+#zero {
+    background-image: url("../images/zero.png");
+    margin: 0 auto;
+    
+    width: 55px;
+    height: 53px;
+    
+    position: absolute;
+    top: 145px;
+    left: 100px;
+    
+    /*
+    background-position: -815px -660px;
+    */
+    
+    /*
+    -webkit-animation: 
+        zero-run-init 0.8s steps(5, end) 1,
+        zero-run 1s steps(8, end) infinite;
+    */
+}
+
+.zero-stand {
+    -webkit-animation: zero-stand 1s steps(2, end) infinite;
+}
+
+.zero-run-right {
+    -webkit-animation: 
+        zero-move-right 4s linear infinite,
+        zero-run 1s steps(13, end) infinite;
+}
+
+.zero-jump {
+    -webkit-animation:
+        zero-up 1s linear infinite,
+        zero-move-up 1s steps(5) infinite;
+        
+}
+.zero-down {
+    -webkit-animation:
+        zero-bottom 1s linear infinite,
+        zero-move-up 1s steps(5) infinite;
+}
+.zero-run-left {
+    -webkit-animation: 
+        zero-move-left 4s linear infinite,
+        zero-run 1s steps(13, end) infinite;
+}
+
+
+.zero-run-instant {
+    -webkit-animation: zero-run 1s steps(13, end) 1;
+    -webkit-animation-delay: -1s;
+}
+
