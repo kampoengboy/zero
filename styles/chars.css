@@ -13,11 +13,11 @@
     to { background-position: -100px -50px; }
 }
 
-@-webkit-keyframes zero-move-right {
-    to   { left: 600px; }
+@keyframes zero-move-right {
+    to   { left: 100px; }
 }
 
-@-webkit-keyframes zero-move-left {
+@keyframes zero-move-left {
     to   { left: 0px; }
 }
 
@@ -33,9 +33,14 @@
     to { top: 145px; }
 }
 
+@keyframes bg-right {
+    from { background-position: -6800px -3px; }
+    to { background-position: -7040px -3px; }
+}
+
 #viewport {
     background-image: url("../images/bg.png");
-    background-position: -6700px -3px;
+    background-position: -6800px -3px;
     height: 225px;
     width: 640px;
 }
@@ -48,7 +53,7 @@
     height: 53px;
     
     position: absolute;
-    top: 145px;
+    top: 150px;
     left: 100px;
     
     /*-webkit-animation: zero-stand 1s steps(2, end) infinite;*/
@@ -70,7 +75,6 @@
 
 .zero-run-right {
     -webkit-animation: 
-        zero-move-right 3s linear,
         zero-run 1s steps(13, end) infinite;
 }
 
@@ -86,7 +90,6 @@
 }
 .zero-run-left {
     -webkit-animation: 
-        zero-move-left 2s linear,
         zero-run 1s steps(13, end) infinite;
 }
 
@@ -96,3 +99,7 @@
     -webkit-animation-delay: -1s;
 }
 
+.bg-move-right{
+    -webkit-animation:
+        bg-right 1s steps(10,end) infinite;
+}

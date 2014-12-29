@@ -1,13 +1,15 @@
 var zero = {
+    el2: document.getElementById("viewport"),
     el: document.getElementById("zero"),
     transformed: false,
     running: false,
     jumping:false,
     right : true,
     getPosX: function () {
-        var style = window.getComputedStyle(this.el),
-            left  = style.left,
-            posX  = parseInt(left.substr(0, left.length - 2), 10);
+        var style = window.getComputedStyle(this.el2),
+            left  = style.backgroundPosition,
+            posX  = parseInt(left.substr(0, left.length - 7), 10);
+            console.log(posX);
         return posX;
     },
     getPosY: function () {
@@ -18,7 +20,21 @@ var zero = {
     },
     
     standStill: function () {
-        if (this.running) {
+        if(this.running){
+            this.el.style.webkitAnimation="";
+            this.el.classList.remove("zero-run-right");
+            this.el.classList.remove("zero-run-left");
+            this.el.classList.remove("zero-jump");
+            this.el2.classList.remove("bg-move-right");
+            this.running = false;
+            this.jumping = false;
+            this.transformed = false;
+            this.el.classList.add("zero-stand");
+            var posX   = this.getPosX(),
+            newPos = posX - 5;
+            this.el2.style.backgroundPosition = newPos + "px " +"-3px" ;
+        }
+        /*if (this.running) {
             this.el.style.webkitAnimation = "";
             this.el.classList.remove("zero-run-right");
             this.el.classList.remove("zero-run-left");
@@ -44,15 +60,33 @@ var zero = {
             this.el.style.webkitAnimation = "";
             this.el.classList.remove("zero-down");
             this.el.classList.add("zero-stand");
-        }
+        }*/
     },
     moveRight: function () {
         var posX   = this.getPosX(),
-            newPos = posX + 8;
-        if (posX >=598) {
-                posX=600;
-                newPos=600;
-            }
+            newPos = posX - 10;
+
+        if (!this.running) {
+            this.el.classList.remove("zero-stand");
+            this.el.classList.remove("zero-run-left");
+            this.el.webkitAnimation=""; 
+            this.el2.classList.add("bg-move-right");   
+            this.el.classList.add("zero-run-right");
+            this.running = true; 
+            this.right = true;
+        }
+         
+        if (!this.transformed) {
+            this.el.style.webkitTransform = "";
+            this.transformed = !this.transformed;
+        }
+        this.el2.style.backgroundPosition = newPos + "px " +"-3px" ;
+        /*var posX   = this.getPosX(),
+            newPos = posX + 3;
+        if (posX >=998) {
+                posX=1000;
+                newPos=1000;
+        }
         if (!this.running) {
             this.el.classList.remove("zero-stand");
             this.el.classList.remove("zero-run-left");
@@ -60,9 +94,9 @@ var zero = {
             this.el.classList.add("zero-run-right");
             this.running = true; 
             var posX   = this.getPosX();
-            if (posX >=598) {
-                posX=600;
-                newPos=600;
+            if (posX >=998) {
+                posX=1000;
+                newPos=1000;
             }
             this.right = true;
         }
@@ -71,10 +105,27 @@ var zero = {
             this.el.style.webkitTransform = "";
             this.transformed = !this.transformed;
         }
-        this.el.style.left = newPos + "px";
+        this.el.style.left = newPos + "px";*/
     },
     moveLeft: function () {
-        var posX   = this.getPosX(),
+         var posX   = this.getPosX(),
+            newPos = posX + 10;
+
+        if (!this.running) {
+            this.el.classList.remove("zero-stand");
+            this.el.classList.remove("zero-run-right");
+            this.el.webkitAnimation=""; 
+            this.el2.classList.add("bg-move-right");   
+            this.el.classList.add("zero-run-left");
+            this.running = true; 
+        }
+         
+        if (!this.transformed) {
+             this.el.style.webkitTransform = "rotateY(180deg)";
+            this.transformed = !this.transformed;
+        }
+        this.el2.style.backgroundPosition = newPos + "px " +"-3px" ;
+        /*var posX   = this.getPosX(),
             newPos = posX - 3;
         
         if (posX <= 0) {
@@ -100,7 +151,7 @@ var zero = {
             this.el.style.webkitTransform = "rotateY(180deg)";
             this.transformed = !this.transformed;
         }
-        this.el.style.left = newPos + "px";
+        this.el.style.left = newPos + "px";*/
         
     },
     moveUp:function(){
