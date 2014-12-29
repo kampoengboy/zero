@@ -27,10 +27,10 @@
 }
 
 @-webkit-keyframes zero-up {
-    to { top: 50px; }
+    to { top: 0px; }
 }
 @-webkit-keyframes zero-bottom {
-    to { top: 100px; }
+    to { top: 145px; }
 }
 
 #viewport {
@@ -51,14 +51,16 @@
     top: 145px;
     left: 100px;
     
+    /*-webkit-animation: zero-stand 1s steps(2, end) infinite;*/
+
     /*
     background-position: -815px -660px;
     */
     
     /*
     -webkit-animation: 
-        zero-run-init 0.8s steps(5, end) 1,
-        zero-run 1s steps(8, end) infinite;
+        zero-run-init 0.8s steps(13, end) 1,
+        zero-run 1s steps(13, end) infinite;
     */
 }
 
@@ -68,24 +70,23 @@
 
 .zero-run-right {
     -webkit-animation: 
-        zero-move-right 4s linear infinite,
+        zero-move-right 3s linear,
         zero-run 1s steps(13, end) infinite;
 }
 
 .zero-jump {
     -webkit-animation:
-        zero-up 1s linear infinite,
-        zero-move-up 1s steps(5) infinite;
-        
+        zero-up 0.6s linear,
+        zero-move-up 1s steps(5) infinite;  
 }
 .zero-down {
     -webkit-animation:
-        zero-bottom 1s linear infinite,
+        zero-bottom 0.6s linear,
         zero-move-up 1s steps(5) infinite;
 }
 .zero-run-left {
     -webkit-animation: 
-        zero-move-left 4s linear infinite,
+        zero-move-left 2s linear,
         zero-run 1s steps(13, end) infinite;
 }
 
