@@ -21,9 +21,12 @@
     to   { left: 0px; }
 }
 
-@-webkit-keyframes zero-move-up {
-    from { background-position: -100px -105px;}
-    to { background-position: -385px -105px;}
+@-webkit-keyframes zero-move-up{
+    to  {top: : 50px;}
+}
+
+@-webkit-keyframes zero-move-down{
+    to: {top: 140px;}
 }
 
 @-webkit-keyframes zero-up {
@@ -32,6 +35,20 @@
 
 @-webkit-keyframes zero-bottom {
     to { top: 150px; }
+}
+
+@-webkit-keyframes zero-jump-up{
+    from{background-position: 0px -100px;}
+    to{background-position: -275px -100px;}
+}
+
+@-webkit-keyframes zero-jump-down{
+    from{background-position: -275px -100px;}
+    to{background-position: -550px -100px;}
+}
+@-webkit-keyframes zero-ride{
+    from{background-position: 0px -200px;}
+    to{background-position: -550px -200px;}
 }
 
 @-webkit-keyframes bg-right {
@@ -55,7 +72,7 @@
     height: 53px;
     
     position: absolute;
-    top: 150px;
+    top: 145px;
     left: 100px;
     
     /*-webkit-animation: zero-stand 1s steps(2, end) infinite;*/
@@ -94,7 +111,15 @@
     -webkit-animation: 
         zero-run 1s steps(13, end) infinite;
 }
+.zero-ride-right{
+    -webkit-animation:
+        zero-ride 0.5s steps(5,end) infinite;
+}
 
+.zero-ride-left{
+    -webkit-animation:
+        zero-ride 0.5s steps(5,end) infinite;
+}
 
 .zero-run-instant {
     -webkit-animation: zero-run 1s steps(13, end) 1;
@@ -109,4 +134,16 @@
 .bg-move-left{
     -webkit-animation:
         bg-left 0.1s steps(13,end) infinite;
+}
+
+.zero-jump-up{
+    -webkit-animation:
+        zero-move-up 0s linear infinite,
+        zero-jump-up 0.325s steps(5,end) 1;
+}
+
+.zero-jump-down{
+    -webkit-animation: 
+        zero-move-down 0s linear infinite,
+        zero-jump-down 0.2s steps(5,end) 1;
 }
