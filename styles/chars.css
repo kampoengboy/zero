@@ -13,11 +13,11 @@
     to { background-position: -100px -50px; }
 }
 
-@keyframes zero-move-right {
-    to   { left: 100px; }
+@-webkit-keyframes zero-move-right {
+    to   { left: 200px; }
 }
 
-@keyframes zero-move-left {
+@-webkit-keyframes zero-move-left {
     to   { left: 0px; }
 }
 
@@ -27,17 +27,19 @@
 }
 
 @-webkit-keyframes zero-up {
-    to { top: 0px; }
+    to { top: 50px; }
 }
+
 @-webkit-keyframes zero-bottom {
-    to { top: 145px; }
+    to { top: 150px; }
 }
 
-@keyframes bg-right {
-    from { background-position: -6800px -3px; }
-    to { background-position: -7040px -3px; }
+@-webkit-keyframes bg-right {
+    to { background-position: -7065px -3px; }
 }
-
+@-webkit-keyframes bg-left {
+    to { background-position: -6750px -3px; }
+}
 #viewport {
     background-image: url("../images/bg.png");
     background-position: -6800px -3px;
@@ -75,18 +77,18 @@
 
 .zero-run-right {
     -webkit-animation: 
+        
         zero-run 1s steps(13, end) infinite;
 }
 
 .zero-jump {
     -webkit-animation:
-        zero-up 0.6s linear,
-        zero-move-up 1s steps(5) infinite;  
+        zero-up 0.5s linear infinite,
+        zero-move-up 0.5s steps(5) infinite;  
 }
 .zero-down {
     -webkit-animation:
-        zero-bottom 0.6s linear,
-        zero-move-up 1s steps(5) infinite;
+        zero-bottom 1s linear;
 }
 .zero-run-left {
     -webkit-animation: 
@@ -101,5 +103,10 @@
 
 .bg-move-right{
     -webkit-animation:
-        bg-right 1s steps(10,end) infinite;
+        bg-right 1s steps(13,end) infinite;
+}
+
+.bg-move-left{
+    -webkit-animation:
+        bg-left 0.1s steps(13,end) infinite;
 }
