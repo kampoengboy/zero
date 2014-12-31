@@ -59,8 +59,8 @@ var websocket = new WebSocket("ws://localhost:8080/"),
         if (this.riding) {
             newPos = posX + 10;
             newPoss = posX_bg - 10;
-            if (newPos >= 145) {
-                newPos = 145;
+            if (newPos >= 600) {
+                newPos = 600;
             }
             if(newPoss <=-6950)
             {
@@ -120,7 +120,7 @@ var websocket = new WebSocket("ws://localhost:8080/"),
         if (newPos <= 0) {
             newPos = 0;
         }
-        if(this.onground && newPos==zero1.getPosX()+40)
+        if(!this.riding && this.onground && newPos==zero1.getPosX()+40)
         {
                 newPos=zero1.getPosX()+40;
                 return;
@@ -198,7 +198,7 @@ zero1 = {
     hasJump : false,
     riding : false,
     right : true,
-    onground:false,
+    onground:true,
     getPosX_bg:function(){
         var style = window.getComputedStyle(this.el2),
             left  = style.backgroundPosition,
