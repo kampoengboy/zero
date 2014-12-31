@@ -52,7 +52,7 @@
 }
 
 @-webkit-keyframes bg-right {
-    to { background-position: -7065px -3px; }
+    to { background-position: -7050px -3px; }
 }
 @-webkit-keyframes bg-left {
     to { background-position: -6750px -3px; }
@@ -94,18 +94,7 @@
 
 .zero-run-right {
     -webkit-animation: 
-        
         zero-run 1s steps(13, end) infinite;
-}
-
-.zero-jump {
-    -webkit-animation:
-        zero-up 0.5s linear infinite,
-        zero-move-up 0.5s steps(5) infinite;  
-}
-.zero-down {
-    -webkit-animation:
-        zero-bottom 1s linear;
 }
 .zero-run-left {
     -webkit-animation: 
@@ -129,11 +118,6 @@
 .bg-move-right{
     -webkit-animation:
         bg-right 1s steps(13,end) infinite;
-}
-
-.bg-move-left{
-    -webkit-animation:
-        bg-left 0.1s steps(13,end) infinite;
 }
 
 .zero-jump-up{
