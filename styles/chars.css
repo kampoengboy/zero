@@ -64,6 +64,18 @@
     width: 640px;
 }
 
+#zero1 {
+    background-image: url("../images/zero.png");
+    margin: 0 auto;
+    
+    width: 55px;
+    height: 53px;
+    
+    position: absolute;
+    top: 145px;
+    left: 200px;
+}
+
 #zero {
     background-image: url("../images/zero.png");
     margin: 0 auto;
