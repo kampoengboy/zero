@@ -393,7 +393,7 @@ var ProsesKeyDown = function() {
         if (!zero.riding) {
             zero.moveLeft();
         }
-        websocket.send("left");
+        //websocket.send("left");
     }
     if (keypressed[38]) {
         if(!zero.hasJump && !zero.riding) {
@@ -403,7 +403,7 @@ var ProsesKeyDown = function() {
             zero.el.classList.add("zero-jump-up");
             t = setInterval(function(){zero.jumpUp()},25);
         }
-        websocket.send("jump");
+        //websocket.send("jump");
     }  
     if (keypressed[39]) {
         zero.right = true;
@@ -411,7 +411,7 @@ var ProsesKeyDown = function() {
         if (!zero.riding) {
             zero.moveRight();
         }
-        websocket.send("right");
+        //websocket.send("right");
     }
     //zero1
     if (keypressed[65]) {
@@ -420,7 +420,7 @@ var ProsesKeyDown = function() {
         if (!zero1.riding) {
             zero1.moveLeft();
         }
-        websocket.send("left");
+        //websocket.send("left");
     }
     if (keypressed[87]) {
         if(!zero1.hasJump && !zero1.riding) {
@@ -430,7 +430,7 @@ var ProsesKeyDown = function() {
             zero1.el.classList.add("zero-jump-up");
             t = setInterval(function(){zero1.jumpUp()},25);
         }
-        websocket.send("jump");
+        //websocket.send("jump");
     }  
     if (keypressed[68]) {
         zero1.right = true;
@@ -438,7 +438,7 @@ var ProsesKeyDown = function() {
         if (!zero1.riding) {
             zero1.moveRight();
         }
-        websocket.send("right");
+        //websocket.send("right");
     }  
     if (keypressed[90]) {
         if(!zero.running && !zero.jumping && !zero.jumpdown){
@@ -484,7 +484,7 @@ var ProsesKeyUp = function () {
             zero1.standStilldown();
         };
     };
-    websocket.send("stand");
+    //websocket.send("stand");
 };
 
 websocket.onmessage = function (message) {
