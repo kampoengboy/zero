@@ -134,12 +134,12 @@
 
 .zero-jump-up{
     -webkit-animation:
-        zero-move-up 0s linear infinite,
+        zero-move-up 1s linear infinite,
         zero-jump-up 0.325s steps(5,end) 1;
 }
 
 .zero-jump-down{
     -webkit-animation: 
-        zero-move-down 0s linear infinite,
+        zero-move-down 1s linear infinite,
         zero-jump-down 0.2s steps(5,end) 1;
 }

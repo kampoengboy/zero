@@ -1,4 +1,4 @@
-var websocket = new WebSocket("ws://localhost:8080/"),
+//var websocket = new WebSocket("ws://localhost:8080/"),
     zero = {
     el: document.getElementById("zero"),
     el2 : document.getElementById("viewport"),
@@ -28,30 +28,31 @@ var websocket = new WebSocket("ws://localhost:8080/"),
             posY   = parseInt(top.substr(0,top.length - 2),10);
         return posY;
     },
-    standStillride : function(){
-            this.el.style.width = "55px";
-            this.el.classList.remove("zero-ride-right");
-            this.el.classList.remove("zero-ride-left");
+    standStill: function () {
+        if(this.running) {
+            this.el.classList.remove("zero-jump-down");
+            this.el.classList.remove("zero-run-right");
+            this.el.classList.remove("zero-run-left");
             this.el2.classList.remove("bg-move-right"); 
-            this.riding = false;
-    },
-    standStilldown : function(){
+            this.el.classList.add("zero-stand");
+            this.running = false;
+        }
         if (this.jumpdown) {
             this.el.classList.remove("zero-jump-down");
             //this.el2.classList.remove("bg-move-right");  
             this.el.classList.add("zero-stand");
             this.jumpdown = false;
         }
-    },
-    standStill: function () {
-            this.el.classList.remove("zero-run-right");
-            this.el.classList.remove("zero-run-left");
+        if(this.riding) {
+            this.el.style.width = "55px";
+            this.el.classList.remove("zero-ride-right");
+            this.el.classList.remove("zero-ride-left");
             this.el2.classList.remove("bg-move-right"); 
-            this.el.classList.add("zero-stand");
-            this.running = false;
+            this.riding = false;
+        }
     },
     moveRight: function () {
-        console.log(zero1.getPosX());
+        //console.log(zero1.getPosX());
         var posX   = this.getPosX(),
             newPos,
             posX_bg = this.getPosX_bg(),
@@ -152,7 +153,7 @@ var websocket = new WebSocket("ws://localhost:8080/"),
         if (newPos <= 70) {
             clearInterval(t);
             newPos = 70;
-            u = setInterval(function(){zero.jumpDown()},25);
+            u = setInterval(function(){zero.jumpDown()},20);
             this.el.classList.remove("zero-jump-up");
             this.el.classList.add("zero-jump-down");
         }
@@ -217,26 +218,26 @@ zero1 = {
             posY   = parseInt(top.substr(0,top.length - 2),10);
         return posY;
     },
-    standStillride : function(){
-            this.el.style.width = "55px";
-            this.el.classList.remove("zero-ride-right");
-            this.el.classList.remove("zero-ride-left");
-            this.el2.classList.remove("bg-move-right"); 
-            this.riding = false;
-    },
-    standStilldown : function(){
-        if (this.jumpdown) {
-            this.el.classList.remove("zero-jump-down");
-            this.el.classList.add("zero-stand");
-            this.jumpdown = false;
-        }
-    },
     standStill: function () {
+        if(this.running) {
             this.el.classList.remove("zero-run-right");
             this.el.classList.remove("zero-run-left");
             this.el2.classList.remove("bg-move-right"); 
             this.el.classList.add("zero-stand");
             this.running = false;
+        }
+        if(this.jumpdown) {
+            this.el.classList.remove("zero-jump-down");
+            this.el.classList.add("zero-stand");
+            this.jumpdown = false;
+        }
+        if(this.riding) {
+            this.el.style.width = "55px";
+            this.el.classList.remove("zero-ride-right");
+            this.el.classList.remove("zero-ride-left");
+            this.el2.classList.remove("bg-move-right"); 
+            this.riding = false;
+        }
     },
     moveRight: function () {
         var posX   = this.getPosX(),
@@ -335,9 +336,9 @@ zero1 = {
         var posY   = this.getPosY(),
             newPos = posY - 5;
         if (newPos <= 70) {
-            clearInterval(t);
+            clearInterval(v);
             newPos = 70;
-            u = setInterval(function(){zero1.jumpDown()},25);
+            w = setInterval(function(){zero1.jumpDown()},25);
             this.el.classList.remove("zero-jump-up");
             this.el.classList.add("zero-jump-down");
         }
@@ -360,7 +361,7 @@ zero1 = {
             newPos = 145;   
             this.el.style.top = newPos + "px";
             ProsesKeyUp();
-            clearInterval(u);
+            clearInterval(w);
         }
 
         if (this.jumping) {
@@ -396,7 +397,7 @@ var ProsesKeyDown = function() {
         //websocket.send("left");
     }
     if (keypressed[38]) {
-        if(!zero.hasJump && !zero.riding) {
+        if(!zero.hasJump) {
             ProsesKeyUp();
             zero.hasJump = true;
             zero.el.classList.remove("zero-stand");
@@ -423,12 +424,12 @@ var ProsesKeyDown = function() {
         //websocket.send("left");
     }
     if (keypressed[87]) {
-        if(!zero1.hasJump && !zero1.riding) {
+        if(!zero1.hasJump) {
             ProsesKeyUp();
             zero1.hasJump = true;
             zero1.el.classList.remove("zero-stand");
             zero1.el.classList.add("zero-jump-up");
-            t = setInterval(function(){zero1.jumpUp()},25);
+            v = setInterval(function(){zero1.jumpUp()},25);
         }
         //websocket.send("jump");
     }  
@@ -461,33 +462,13 @@ ProsesKeyDown();
 
 var ProsesKeyUp = function () {
     //zero
-    if (zero.running) {
-        zero.standStill();
-    }
-    if (zero.riding == true) {
-        zero.standStillride();
-    };
-    if (zero.jumpdown == true) {
-        if (!zero.clicked) {
-            zero.standStilldown();
-        };
-    };
+    zero.standStill();
     //zero1
-    if (zero1.running) {
-        zero1.standStill();
-    }
-    if (zero1.riding == true) {
-        zero1.standStillride();
-    };
-    if (zero1.jumpdown == true) {
-        if (!zero1.clicked) {
-            zero1.standStilldown();
-        };
-    };
+    zero1.standStill();
     //websocket.send("stand");
 };
 
-websocket.onmessage = function (message) {
+/*websocket.onmessage = function (message) {
     var command = message.data;
     
     switch (command) {
@@ -546,4 +527,4 @@ websocket.onmessage = function (message) {
             });
             break;
     }
-};
+};*/
