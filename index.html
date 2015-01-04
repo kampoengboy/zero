@@ -5,15 +5,20 @@
     <title>Simple HTML Game</title>
     
     <link rel="stylesheet" href="styles/chars.css">
+    <link rel="stylesheet" href="styles/bootstrap.css">
 </head>
 <body>
     <div id="viewport">
+	  <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 45%; height:30px;">
+	  </div>
+	   <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 45%; height:30px; float:right;">
+	  </div>
         <div id="zero"></div>
         <div id = "zero1"></div>
     </div>
     
     <script type="text/javascript" src="scripts/world.js"></script>
-
+    <script type="text/javascript" src="scripts/bootstrap.js"></script>
     <h1 id="watch"></h1>
 </body>
 </html>

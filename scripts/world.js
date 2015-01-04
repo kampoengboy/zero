@@ -159,7 +159,7 @@
         }
         if(!this.jumping){
             if(this.riding){
-                this.standStillride();
+                this.standStill();
             }
             this.el.classList.remove("zero-stand");
             this.el.classList.add("zero-jump-up");
@@ -198,7 +198,7 @@ zero1 = {
     jumpdown :false,
     hasJump : false,
     riding : false,
-    right : true,
+    right : false,
     onground:true,
     getPosX_bg:function(){
         var style = window.getComputedStyle(this.el2),
@@ -287,8 +287,8 @@ zero1 = {
             this.el.classList.remove("zero-run-right");
         }
 
-        if (this.transformed) {
-            this.el.style.webkitTransform = "";
+        if (!this.transformed) {
+            this.el.style.webkitTransform = "rotateY(0deg)";
             this.transformed = !this.transformed;
         }
         this.el.style.left = newPos + "px";
@@ -326,8 +326,8 @@ zero1 = {
         else{
             this.el.classList.remove("zero-run-left");
         }    
-        if (!this.transformed) {
-            this.el.style.webkitTransform = "rotateY(180deg)";
+        if (this.transformed) {
+            this.el.style.webkitTransform = "";
             this.transformed = !this.transformed;
         }
         this.el.style.left = newPos + "px";
@@ -344,7 +344,7 @@ zero1 = {
         }
         if(!this.jumping){
             if(this.riding){
-                this.standStillride();
+                this.standStill();
             }
             this.el.classList.remove("zero-stand");
             this.el.classList.add("zero-jump-up");

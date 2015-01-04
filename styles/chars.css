@@ -73,7 +73,9 @@
     
     position: absolute;
     top: 145px;
-    left: 200px;
+    left: 500px;
+
+    -webkit-transform: rotateY(180deg);
 }
 
 #zero {
