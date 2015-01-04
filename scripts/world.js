@@ -2,6 +2,7 @@
     zero = {
     el: document.getElementById("zero"),
     el2 : document.getElementById("viewport"),
+    el3 : document.getElementById("gauge1"),
     transformed: false,
     running: false,
     jumping :false,
@@ -10,6 +11,13 @@
     riding : false,
     onground : true,
     right : true,
+    hasMinus : false,
+    getWidth : function(){
+        var style = window.getComputedStyle(this.el),
+            left = style.width,
+            width = parseInt(left.substr(0,left.length-2),10);
+            return width;
+    },
     getPosX_bg:function(){
         var style = window.getComputedStyle(this.el2),
             left  = style.backgroundPosition,
@@ -50,6 +58,9 @@
             this.el2.classList.remove("bg-move-right"); 
             this.riding = false;
         }
+        if(this.hasMinus) {
+            this.hasMinus = false;
+        }
     },
     moveRight: function () {
         //console.log(zero1.getPosX());
@@ -58,8 +69,21 @@
             posX_bg = this.getPosX_bg(),
             newPoss;
         if (this.riding) {
+            var state = false;
             newPos = posX + 10;
             newPoss = posX_bg - 10;
+            //console.log(newPos+" "+zero1.getPosX());
+            if(newPos>=zero1.getPosX()-40 && newPos<=zero1.getPosX()-40+zero1.getWidth())
+            {
+                //console.log(newPos+" "+zero1.getPosX());
+                var width = this.el3.style.width;
+                var x = parseInt(width.substr(0,width.length-1),10);
+                //console.log(x);
+                if(!this.hasMinus) {
+                    this.hasMinus = true;
+                    this.el3.style.width = (x - 5)+"%";
+                }
+            }
             if (newPos >= 600) {
                 newPos = 600;
             }
@@ -114,6 +138,17 @@
             newPos;   
         if (this.riding) {
             newPos = posX - 10;
+            if(newPos>=zero1.getPosX()-40 && newPos<=zero1.getPosX()-40+zero1.getWidth())
+            {
+                //console.log(newPos+" "+zero1.getPosX());
+                var width = this.el3.style.width;
+                var x = parseInt(width.substr(0,width.length-1),10);
+                //console.log(x);
+                if(!this.hasMinus) {
+                    this.hasMinus = true;
+                    this.el3.style.width = (x - 5)+"%";
+                }
+            }
         }
         else{
             newPos = posX - 5;
@@ -192,6 +227,7 @@
 zero1 = {
     el: document.getElementById("zero1"),
     el2 : document.getElementById("viewport"),
+    el3 : document.getElementById("gauge"),
     transformed: false,
     running: false,
     jumping :false,
@@ -200,6 +236,13 @@ zero1 = {
     riding : false,
     right : false,
     onground:true,
+    hasMinus : false,
+    getWidth : function(){
+        var style = window.getComputedStyle(this.el),
+            left = style.width,
+            width = parseInt(left.substr(0,left.length-2),10);
+            return width;
+    },
     getPosX_bg:function(){
         var style = window.getComputedStyle(this.el2),
             left  = style.backgroundPosition,
@@ -220,14 +263,16 @@ zero1 = {
     },
     standStill: function () {
         if(this.running) {
+            this.el.classList.remove("zero-jump-down");
             this.el.classList.remove("zero-run-right");
             this.el.classList.remove("zero-run-left");
             this.el2.classList.remove("bg-move-right"); 
             this.el.classList.add("zero-stand");
             this.running = false;
         }
-        if(this.jumpdown) {
+        if (this.jumpdown) {
             this.el.classList.remove("zero-jump-down");
+            //this.el2.classList.remove("bg-move-right");  
             this.el.classList.add("zero-stand");
             this.jumpdown = false;
         }
@@ -238,6 +283,9 @@ zero1 = {
             this.el2.classList.remove("bg-move-right"); 
             this.riding = false;
         }
+        if(this.hasMinus) {
+            this.hasMinus = false;
+        }
     },
     moveRight: function () {
         var posX   = this.getPosX(),
@@ -247,8 +295,19 @@ zero1 = {
         if (this.riding) {
             newPos = posX + 10;
             newPoss = posX_bg - 10;
-            if (newPos >= 145) {
-                newPos = 145;
+            if(newPos>=zero.getPosX()-40 && newPos<=zero.getPosX()-40+zero.getWidth())
+            {
+                //console.log(newPos+" "+zero1.getPosX());
+                var width = this.el3.style.width;
+                var x = parseInt(width.substr(0,width.length-1),10);
+                //console.log(x);
+                if(!this.hasMinus) {
+                    this.hasMinus = true;
+                    this.el3.style.width = (x - 5)+"%";
+                }
+            }
+            if (newPos >= 600) {
+                newPos = 600;
             }
             if(newPoss <=-6950)
             {
@@ -299,6 +358,17 @@ zero1 = {
             newPos;   
         if (this.riding) {
             newPos = posX - 10;
+            if(newPos>=zero.getPosX()-40 && newPos<=zero.getPosX()-40+zero.getWidth())
+            {
+                //console.log(newPos+" "+zero1.getPosX());
+                var width = this.el3.style.width;
+                var x = parseInt(width.substr(0,width.length-1),10);
+                //console.log(x);
+                if(!this.hasMinus) {
+                    this.hasMinus = true;
+                    this.el3.style.width = (x - 5)+"%";
+                }
+            }
         }
         else{
             newPos = posX - 5;
@@ -414,6 +484,20 @@ var ProsesKeyDown = function() {
         }
         //websocket.send("right");
     }
+    if (keypressed[90]) {
+        if(!zero.running && !zero.jumping && !zero.jumpdown){
+            zero.riding = true;
+            if(zero.right){
+                if (zero.getPosX() >= 545) {
+                    zero.el.style.left = "545px";
+                }
+                zero.moveRight();
+            }
+            else{
+                zero.moveLeft();
+            }
+        }
+    }
     //zero1
     if (keypressed[65]) {
         zero1.right = false;
@@ -441,17 +525,17 @@ var ProsesKeyDown = function() {
         }
         //websocket.send("right");
     }  
-    if (keypressed[90]) {
-        if(!zero.running && !zero.jumping && !zero.jumpdown){
-            zero.riding = true;
-            if(zero.right){
-                if (zero.getPosX() >= 545) {
-                    zero.el.style.left = "545px";
+    if (keypressed[88]) {
+        if(!zero1.running && !zero1.jumping && !zero1.jumpdown){
+            zero1.riding = true;
+            if(zero1.right){
+                if (zero1.getPosX() >= 545) {
+                    zero1.el.style.left = "545px";
                 }
-                zero.moveRight();
+                zero1.moveRight();
             }
             else{
-                zero.moveLeft();
+                zero1.moveLeft();
             }
         }
     }
