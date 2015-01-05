@@ -82,6 +82,13 @@
                 if(!this.hasMinus) {
                     this.hasMinus = true;
                     this.el3.style.width = (x - 5)+"%";
+                    if(x-5==0)
+                    {
+                        window.addEventListener('keydown', function(e) {
+                            keypressed[e.keyCode] = false;
+                        });
+                        setTimeout(function(){window.alert("Player 1 menang");},500);
+                    }
                 }
             }
             if (newPos >= 600) {
@@ -147,6 +154,13 @@
                 if(!this.hasMinus) {
                     this.hasMinus = true;
                     this.el3.style.width = (x - 5)+"%";
+                    if(x-5==0)
+                    {
+                        window.addEventListener('keydown', function(e) {
+                            keypressed[e.keyCode] = false;
+                        });
+                        setTimeout(function(){window.alert("Player 1 menang");},500);
+                    }
                 }
             }
         }
@@ -304,6 +318,13 @@ zero1 = {
                 if(!this.hasMinus) {
                     this.hasMinus = true;
                     this.el3.style.width = (x - 5)+"%";
+                    if(x-5==0)
+                    {
+                        window.addEventListener('keydown', function(e) {
+                            keypressed[e.keyCode] = false;
+                        });
+                        setTimeout(function(){window.alert("Player 2 menang");},500);
+                    }
                 }
             }
             if (newPos >= 600) {
@@ -367,20 +388,31 @@ zero1 = {
                 if(!this.hasMinus) {
                     this.hasMinus = true;
                     this.el3.style.width = (x - 5)+"%";
+                    if(x-5==0)
+                    {
+                        window.addEventListener('keydown', function(e) {
+                            keypressed[e.keyCode] = false;
+                        });
+                        setTimeout(function(){window.alert("Player 2 menang");},500);
+                    }
                 }
+            }
+            if (newPos <= 0) {
+                newPos = 0;
             }
         }
         else{
             newPos = posX - 5;
-        }
-        if(this.onground &&newPos==zero.getPosX()+40)
-        {
+            if(this.onground &&newPos==zero.getPosX()+40)
+            {
                 newPos=zero.getPosX()+40;
                 return;
+            }
+            if (newPos <= 0) {
+	       newPos = 0;
+            }
         }
-        if (newPos <= 0) {
-            newPos = 0;
-        }
+        
         if(!this.jumping && !this.jumpdown){
             if (!this.running) {
                 this.el.classList.remove("zero-stand");
