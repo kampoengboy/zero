@@ -1,4 +1,4 @@
-//var websocket = new WebSocket("ws://localhost:8080/"),
+
     zero = {
     el: document.getElementById("zero"),
     el2 : document.getElementById("viewport"),
@@ -56,6 +56,7 @@
             this.el.classList.remove("zero-ride-right");
             this.el.classList.remove("zero-ride-left");
             this.el2.classList.remove("bg-move-right"); 
+            this.el.classList.add("zero-stand");
             this.riding = false;
         }
         if(this.hasMinus) {
@@ -72,8 +73,9 @@
             var state = false;
             newPos = posX + 10;
             newPoss = posX_bg - 10;
+
             //console.log(newPos+" "+zero1.getPosX());
-            if(newPos>=zero1.getPosX()-40 && newPos<=zero1.getPosX()-40+zero1.getWidth())
+            if(newPos>=zero1.getPosX()-40 && newPos<=zero1.getPosX()-40+zero1.getWidth() && zero1.onground)
             {
                 //console.log(newPos+" "+zero1.getPosX());
                 var width = this.el3.style.width;
@@ -145,7 +147,7 @@
             newPos;   
         if (this.riding) {
             newPos = posX - 10;
-            if(newPos>=zero1.getPosX()-40 && newPos<=zero1.getPosX()-40+zero1.getWidth())
+            if(newPos>=zero1.getPosX()-40 && newPos<=zero1.getPosX()-40+zero1.getWidth() && zero1.onground)
             {
                 //console.log(newPos+" "+zero1.getPosX());
                 var width = this.el3.style.width;
@@ -295,6 +297,7 @@ zero1 = {
             this.el.classList.remove("zero-ride-right");
             this.el.classList.remove("zero-ride-left");
             this.el2.classList.remove("bg-move-right"); 
+            this.el.classList.add("zero-stand");
             this.riding = false;
         }
         if(this.hasMinus) {
@@ -309,7 +312,7 @@ zero1 = {
         if (this.riding) {
             newPos = posX + 10;
             newPoss = posX_bg - 10;
-            if(newPos>=zero.getPosX()-40 && newPos<=zero.getPosX()-40+zero.getWidth())
+            if(newPos>=zero.getPosX()-40 && newPos<=zero.getPosX()-40+zero.getWidth() && zero.onground)
             {
                 //console.log(newPos+" "+zero1.getPosX());
                 var width = this.el3.style.width;
@@ -379,7 +382,7 @@ zero1 = {
             newPos;   
         if (this.riding) {
             newPos = posX - 10;
-            if(newPos>=zero.getPosX()-40 && newPos<=zero.getPosX()-40+zero.getWidth())
+            if(newPos>=zero.getPosX()-40 && newPos<=zero.getPosX()-40+zero.getWidth() && zero.onground)
             {
                 //console.log(newPos+" "+zero1.getPosX());
                 var width = this.el3.style.width;
@@ -496,7 +499,7 @@ var ProsesKeyDown = function() {
         if (!zero.riding) {
             zero.moveLeft();
         }
-        //websocket.send("left");
+
     }
     if (keypressed[38]) {
         if(!zero.hasJump) {
@@ -506,7 +509,7 @@ var ProsesKeyDown = function() {
             zero.el.classList.add("zero-jump-up");
             t = setInterval(function(){zero.jumpUp()},25);
         }
-        //websocket.send("jump");
+
     }  
     if (keypressed[39]) {
         zero.right = true;
@@ -514,9 +517,9 @@ var ProsesKeyDown = function() {
         if (!zero.riding) {
             zero.moveRight();
         }
-        //websocket.send("right");
+       
     }
-    if (keypressed[90]) {
+    if (keypressed[191]) {
         if(!zero.running && !zero.jumping && !zero.jumpdown){
             zero.riding = true;
             if(zero.right){
@@ -537,7 +540,7 @@ var ProsesKeyDown = function() {
         if (!zero1.riding) {
             zero1.moveLeft();
         }
-        //websocket.send("left");
+        
     }
     if (keypressed[87]) {
         if(!zero1.hasJump) {
@@ -547,7 +550,7 @@ var ProsesKeyDown = function() {
             zero1.el.classList.add("zero-jump-up");
             v = setInterval(function(){zero1.jumpUp()},25);
         }
-        //websocket.send("jump");
+        
     }  
     if (keypressed[68]) {
         zero1.right = true;
@@ -555,9 +558,9 @@ var ProsesKeyDown = function() {
         if (!zero1.riding) {
             zero1.moveRight();
         }
-        //websocket.send("right");
+        
     }  
-    if (keypressed[88]) {
+    if (keypressed[90]) {
         if(!zero1.running && !zero1.jumping && !zero1.jumpdown){
             zero1.riding = true;
             if(zero1.right){
@@ -581,66 +584,4 @@ var ProsesKeyUp = function () {
     zero.standStill();
     //zero1
     zero1.standStill();
-    //websocket.send("stand");
 };
-
-/*websocket.onmessage = function (message) {
-    var command = message.data;
-    
-    switch (command) {
-        case "left":
-            if (zero.riding) {
-                if (zero.getPosX() >= 545) {
-                    zero.el.style.left = "545px";
-                };
-            };
-            right = false;
-            zero.moveLeft();
-            break;
-        case "right":
-            right = true;
-            zero.moveRight();
-            break;
-        case "jump":
-            if(!zero.clicked){
-                ProsesKeyUp();
-                zero.hasJump = true;
-                zero.el.classList.remove("zero-stand");
-                zero.el.classList.add("zero-jump-up");
-                t = setInterval(function(){zero.jumpUp()},25);
-            }
-        case "stand":
-             if (zero.running == true) {
-                if (zero.riding == true) {
-                    zero.standStillride();
-                };
-                zero.standStill();
-            }
-            if (zero.jumpdown == true) {
-                if (!zero.clicked) {
-                    zero.standStilldown();
-                };
-            };
-            break;
-        case "ride" :
-            if (zero.riding) {
-                ProsesKeyUp();
-                zero.riding = false;
-            }
-            else{
-                zero.riding = true;   
-            }
-            break;
-        case "watch":
-            var wm = document.querySelector("h1#watch");
-            wm.innerHTML = "Watch Mode";
-            window.removeEventListener('keydown', function(e) {
-                keypressed[e.keyCode] = true;
-            });    
-            window.removeEventListener('keyup', function(e) {
-                keypressed[e.keyCode] = false;
-                ProsesKeyUp();
-            });
-            break;
-    }
-};*/
